@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<world name="myworld1">
+  <gravity x="0.0" y="-980.7" z="0.0"/>
+
+
+  <instanciate class="Man-nii.xml">
+    <set-attr-value name="name" value="man_000"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>
+    <set-attr-value name="y" value="60.0"/>
+    <set-attr-value name="z" value="130.0"/>
+    <set-attr-value name="qw" value="0"/>
+    <set-attr-value name="qy" value="-3"/>
+    <camera id="1"
+            link="HEAD_LINK"
+            direction="0 0 1"
+            position="0.0 0.0 5.0"/>
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation" value="./cleanUpUser.so"/>
+  </instanciate>
+
+  <instanciate class="WheelRobot-nii-v1.xml" type="Robot">
+    <set-attr-value name="name" value="robot_000"/>
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./cleanUpRobot.so"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="100.0"/>
+    <set-attr-value name="y" value="30.0"/>
+    <set-attr-value name="z" value="-100.0"/>
+    <set-attr-value name="collision" value="true"/>
+    <!--stereo camera right-->
+    <camera id="1"
+            link="REYE_LINK"
+            direction="0.0 -1.0 1.0"
+            position="0.0 0.0 3.0"/>
+    <!--stereo camera left-->
+    <camera id="2"
+            link="LEYE_LINK"
+            direction="0.0 -1.0 1.0"
+            position="0.0 0.0 3.0"/>
+    <!--distance sensor-->
+    <camera id="3"
+            link="WAIST_LINK0"
+            direction="0.0 0.0 1.0"
+            position="0.0 -5.0 20.0"/>
+    <!--monitoring camera-->
+    <camera id="4"
+            link="WAIST_LINK2"
+            direction="0 0 1"
+            quaternion="0.0 0.0 -0.966 0.259"
+            position="0.0 40.0 120.0"/>
+  </instanciate>
+
+  <instanciate class="A1_room.xml">
+    <set-attr-value name="name" value="room"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-300.0"/>
+    <set-attr-value name="y" value="210.0"/>
+    <set-attr-value name="z" value="-40.0"/>
+    <set-attr-value name="scalex" value="1.0"/>
+    <set-attr-value name="scaley" value="1.0"/>
+    <set-attr-value name="scalez" value="1.2"/>
+    <set-attr-value name="collision" value="false"/>
+    <set-attr-value name="graspable" value="false"/>
+  </instanciate>
+
+  <instanciate class="seSidetable_B.xml">
+    <set-attr-value name="name" value="table_0"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>
+    <set-attr-value name="y" value="24.0"/>
+    <set-attr-value name="z" value="70.0"/>
+    <set-attr-value name="scalex" value="1.5"/>
+    <set-attr-value name="scaley" value="1.5"/>
+    <set-attr-value name="scalez" value="1.5"/>
+    <set-attr-value name="collision" value="false"/>
+    <set-attr-value name="graspable" value="false"/>
+  </instanciate>
+
+  <instanciate class="seSidetable_B.xml">
+    <set-attr-value name="name" value="table_1"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>
+    <set-attr-value name="y" value="24.0"/>
+    <set-attr-value name="z" value="-130.0"/>
+    <set-attr-value name="scalex" value="1.5"/>
+    <set-attr-value name="scaley" value="1.5"/>
+    <set-attr-value name="scalez" value="1.5"/>
+    <set-attr-value name="collision" value="false"/>
+    <set-attr-value name="graspable" value="false"/>
+  </instanciate>
+
+  <instanciate class="sePetbottle_500ml_empty_c01.xml">
+    <set-attr-value name="name" value="petbottle"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="40.0"/>
+    <set-attr-value name="y" value="59.15"/>
+    <set-attr-value name="z" value="50.0"/>
+    <set-attr-value name="collision" value=""/>
+  </instanciate>
+
+  <instanciate class="seMugcup_c01.xml">
+    <set-attr-value name="name" value="mugcup"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>
+    <set-attr-value name="y" value="51.99"/>
+    <set-attr-value name="z" value="50.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seCannedjuice_350ml_c01.xml">
+    <set-attr-value name="name" value="can"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-40.0"/>
+    <set-attr-value name="y" value="54.250"/>
+    <set-attr-value name="z" value="50.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+<!--
+  <instanciate class="sePetbottle_2l_half_c02.xml">
+    <set-attr-value name="name" value="petbottle_0"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-40.0"/>
+    <set-attr-value name="y" value="64.65"/>
+    <set-attr-value name="z" value="40.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="sePetbottle_2l_empty_c02.xml">
+    <set-attr-value name="name" value="petbottle_1"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-20.0"/>
+    <set-attr-value name="y" value="64.65"/>
+    <set-attr-value name="z" value="40.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="sePetbottle_2l_empty_c01.xml">
+    <set-attr-value name="name" value="petbottle_2"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>
+    <set-attr-value name="y" value="64.65"/>
+    <set-attr-value name="z" value="40.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="sePetbottle_500ml_full_c02.xml">
+    <set-attr-value name="name" value="petbottle_3"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="20.0"/>
+    <set-attr-value name="y" value="59.15"/>
+    <set-attr-value name="z" value="40.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="sePetbottle_500ml_empty_c01.xml">
+    <set-attr-value name="name" value="petbottle_4"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="40.0"/>
+    <set-attr-value name="y" value="59.15"/>
+    <set-attr-value name="z" value="40.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seBanana.xml">
+    <set-attr-value name="name" value="banana"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-40.0"/>
+    <set-attr-value name="y" value="48.89"/>
+    <set-attr-value name="z" value="60.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seChigarette.xml">
+    <set-attr-value name="name" value="chigarette"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-20.0"/>
+    <set-attr-value name="y" value="51.25"/>
+    <set-attr-value name="z" value="60.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seChocolate.xml">
+    <set-attr-value name="name" value="chocolate"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>
+    <set-attr-value name="y" value="48.35"/>
+    <set-attr-value name="z" value="60.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seMayonaise_full.xml">
+    <set-attr-value name="name" value="mayonaise_0"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="20.0"/>
+    <set-attr-value name="y" value="55.5"/>
+    <set-attr-value name="z" value="60.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seMayonaise_empty.xml">
+    <set-attr-value name="name" value="mayonaise_1"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="40.0"/>
+    <set-attr-value name="y" value="55.5"/>
+    <set-attr-value name="z" value="60.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seMugcup_c01.xml">
+    <set-attr-value name="name" value="mugcup"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-40.0"/>
+    <set-attr-value name="y" value="51.99"/>
+    <set-attr-value name="z" value="80.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seCannedjuice_200ml_c01.xml">
+    <set-attr-value name="name" value="can_0"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-20.0"/>
+    <set-attr-value name="y" value="52.535"/>
+    <set-attr-value name="z" value="80.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seCannedjuice_200ml_c02.xml">
+    <set-attr-value name="name" value="can_1"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>
+    <set-attr-value name="y" value="52.535"/>
+    <set-attr-value name="z" value="80.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seCannedjuice_350ml_c01.xml">
+    <set-attr-value name="name" value="can_2"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="20.0"/>
+    <set-attr-value name="y" value="54.250"/>
+    <set-attr-value name="z" value="80.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+
+  <instanciate class="seCannedjuice_350ml_c02.xml">
+    <set-attr-value name="name" value="can_3"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="40.0"/>
+    <set-attr-value name="y" value="54.250"/>
+    <set-attr-value name="z" value="80.0"/>
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>
+-->
+
+  <instanciate class="seTrashbox_c01.xml">
+    <set-attr-value name="name" value="recycle"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="200.0"/>
+    <set-attr-value name="y" value="36.35"/>  
+    <set-attr-value name="z" value="-50.0"/>
+    <set-attr-value name="collision" value="true"/>
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./TrashBox.so"/>
+    <set-attr-value name="qw" value="0.707"/>
+    <set-attr-value name="qy" value="0.707"/>
+    <set-attr-value name="graspable" value="false"/>
+  </instanciate>
+
+  <instanciate class="seTrashbox_c02.xml">
+    <set-attr-value name="name" value="burnable"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="200.0"/>
+    <set-attr-value name="y" value="36.35"/>  
+    <set-attr-value name="z" value="0.0"/>
+    <set-attr-value name="collision" value="true"/>
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./TrashBox.so"/>
+    <set-attr-value name="qw" value="0.707"/>
+    <set-attr-value name="qy" value="0.707"/>
+    <set-attr-value name="graspable" value="false"/>
+  </instanciate>
+  
+  <instanciate class="seTrashbox_c03.xml">
+    <set-attr-value name="name" value="unburnable"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="200.0"/>
+    <set-attr-value name="y" value="36.35"/>  
+    <set-attr-value name="z" value="50.0"/>
+    <set-attr-value name="collision" value="true"/>
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./TrashBox.so"/>
+    <set-attr-value name="qw" value="0.707"/>
+    <set-attr-value name="qy" value="0.707"/>
+    <set-attr-value name="graspable" value="false"/>
+  </instanciate>
+
+  <instanciate class="seWagon_c02.xml">
+    <set-attr-value name="name" value="wagon"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-170.0"/>
+    <set-attr-value name="y" value="25.4"/>
+    <set-attr-value name="z" value="-100.0"/>
+    <set-attr-value name="collision" value="true"/>
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./Wagon.so"/>
+    <set-attr-value name="scalex" value="0.7"/>
+    <set-attr-value name="scaley" value="0.7"/>
+    <set-attr-value name="scalez" value="0.7"/>
+    <set-attr-value name="graspable" value="false"/>
+  </instanciate>
+</world>
