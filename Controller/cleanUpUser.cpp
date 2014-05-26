@@ -26,6 +26,7 @@ private:
   ViewService *m_view;
   BaseService *m_kinect;
   BaseService *m_hmd;
+  BaseService *m_wii;
 
   //初期位置
   double m_posx, m_posy, m_posz;
@@ -53,6 +54,7 @@ void UserController::onInit(InitEvent &evt)
   //m_hmd = connectToService("SIGHMD");
   m_kinect = NULL;
   m_hmd = NULL;
+  m_wii = NULL;
 
   vel      = 10.0;
   srand(time(NULL));
@@ -85,7 +87,8 @@ double UserController::onAction(ActionEvent &evt)
 
   // サービスが使用可能か定期的にチェックする
   bool av_kinect = checkService("SIGKINECT");
-  bool av_hmd = checkService("SIGHMD");
+  bool av_hmd = checkService("SIGORS");
+  bool av_wii = checkService("Wii_Service");
 
   // 使用可能
   if(av_kinect && m_kinect == NULL){
@@ -100,11 +103,20 @@ double UserController::onAction(ActionEvent &evt)
   // 使用可能
   if(av_hmd && m_hmd == NULL){
     // サービスに接続
-    m_hmd = connectToService("SIGHMD");
+    m_hmd = connectToService("SIGORS");
 
   }
   else if (!av_hmd && m_hmd != NULL){
     m_hmd = NULL;
+  }
+
+  // 使用可能
+  if(av_wii && m_wii == NULL){
+    // サービスに接続
+    m_wii = connectToService("Wii_Service");
+  }
+  else if (!av_wii && m_wii != NULL){
+    m_wii = NULL;
   }
 
   return 1.5;
@@ -131,8 +143,9 @@ void UserController::onRecvMsg(RecvMsgEvent &evt)
   headss.assign(ss, strPos1, strPos2-strPos1);
 
 
+  //std::cout<<ss<<std::endl;
 
-  if(headss == "HMD_DATA"){
+  if(headss == "ORS_DATA"){
     //HMDデータによる頭部の動き反映
     moveHeadByHMD(ss);
   }
@@ -140,19 +153,22 @@ void UserController::onRecvMsg(RecvMsgEvent &evt)
     //KINECTデータによる頭部以外の体の動き反映
     moveBodyByKINECT(all_msg);
   }
-    else if(ss == "go") {
+  else if(ss == "go") {
     sendMsg("robot_000","go");
-     LOG_MSG(("Starting the clean up task"));
+    LOG_MSG(("Starting the clean up task"));
+    std::cout<<"go"<<std::endl;
   }
 
   else if(ss == "take" ) {
     sendMsg("robot_000","take");
-      LOG_MSG(("Taking the trash"));
+    LOG_MSG(("Taking the trash"));
+    std::cout<<"take"<<std::endl;
   }
 
-    else if(ss == "put" ) {
+  else if(ss == "put" ) {
     sendMsg("robot_000","put");
-      LOG_MSG(("Putting the trash in the trash box"));
+    LOG_MSG(("Putting the trash in the trash box"));
+    std::cout<<"put"<<std::endl;
   }
 
 
@@ -177,7 +193,10 @@ void UserController::moveHeadByHMD(const std::string ss){
   strPos2 = ss.find(" ", strPos1);
   headss.assign(ss, strPos1, strPos2-strPos1);
 
-  if(headss == "HMD_DATA"){
+  if(headss == "ORS_DATA"){
+//    LOG_MSG((all_msg));
+//  }
+//  if(headss == "HMD_DATA"){
 
     double yaw, pitch, roll;
     strPos1 = strPos2+1;
@@ -185,7 +204,7 @@ void UserController::moveHeadByHMD(const std::string ss){
 
     strPos2 = ss.find(",", strPos1);
     tmpss.assign(ss, strPos1, strPos2-strPos1);
-    yaw = atof(tmpss.c_str());
+    yaw = -atof(tmpss.c_str());
 
     strPos1 = strPos2+1;
     strPos2 = ss.find(",", strPos1);
@@ -197,8 +216,6 @@ void UserController::moveHeadByHMD(const std::string ss){
     tmpss.assign(ss, strPos1, strPos2-strPos1);
     roll = atof(tmpss.c_str());
 
-
-    // 前回送信したyaw pitch roll と同じ場合は送信しない
     if(yaw == pyaw && pitch == ppitch && roll == proll)  return;
     else {
       pyaw = yaw;
@@ -206,7 +223,6 @@ void UserController::moveHeadByHMD(const std::string ss){
       proll = roll;
     }
 
-    // yaw pitch roll をクオータニオンに変換
     dQuaternion qyaw;
     dQuaternion qpitch;
     dQuaternion qroll;
@@ -228,26 +244,18 @@ void UserController::moveHeadByHMD(const std::string ss){
     dQuaternion tmpQ1;
     dQuaternion tmpQ2;
 
-    // yaw pitch roll の順に回転
     dQMultiply0(tmpQ1, qyaw, qpitch);
     dQMultiply0(tmpQ2, tmpQ1, qroll);
 
-    // 体全体の回転
     dQuaternion bodyQ;
     bodyQ[0] = m_qw;
     bodyQ[1] = m_qx;
     bodyQ[2] = m_qy;
     bodyQ[3] = m_qz;
 
-    // 体全体の回転との差分をとる
     dQuaternion tmpQ3;
     dQMultiply1(tmpQ3, bodyQ, tmpQ2);
 
-    // 回転角度が小さい場合は回転しない
-    double theta = 2*acos(tmpQ3[0]);
-    if(theta <= 0.001) return;
-
-    // 首の関節を回転する
     my->setJointQuaternion("HEAD_JOINT0", tmpQ3[0], tmpQ3[1], tmpQ3[2], tmpQ3[3]);
   }
 }
@@ -267,7 +275,7 @@ void UserController::moveBodyByKINECT(char* all_msg){
       if(strcmp(type,"POSITION") == 0){
 	//体の位置
 	double x = atof(strtok(NULL,","));
-	double y = atof(strtok(NULL,","));
+	double y = 0;//atof(strtok(NULL,","));
 	double z = atof(strtok(NULL," "));
 	//エージェント座標からグローバル座標への変換
 	double gx = cos(m_yrot)*x - sin(m_yrot)*z;

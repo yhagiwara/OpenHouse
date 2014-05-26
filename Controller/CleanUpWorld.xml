@@ -55,8 +55,8 @@
   <instanciate class="A1_room.xml">
     <set-attr-value name="name" value="room"/>
     <set-attr-value name="dynamics" value="false"/>
-    <set-attr-value name="x" value="-300.0"/>
-    <set-attr-value name="y" value="210.0"/>
+    <set-attr-value name="x" value="-200.0"/>
+    <set-attr-value name="y" value="212.0"/>
     <set-attr-value name="z" value="-40.0"/>
     <set-attr-value name="scalex" value="1.0"/>
     <set-attr-value name="scaley" value="1.0"/>
@@ -260,7 +260,7 @@
     <set-attr-value name="dynamics" value="false"/>
     <set-attr-value name="x" value="200.0"/>
     <set-attr-value name="y" value="36.35"/>  
-    <set-attr-value name="z" value="-50.0"/>
+    <set-attr-value name="z" value="-70.0"/>
     <set-attr-value name="collision" value="true"/>
     <set-attr-value name="language" value="c++"/>
     <set-attr-value name="implementation"
@@ -290,7 +290,7 @@
     <set-attr-value name="dynamics" value="false"/>
     <set-attr-value name="x" value="200.0"/>
     <set-attr-value name="y" value="36.35"/>  
-    <set-attr-value name="z" value="50.0"/>
+    <set-attr-value name="z" value="70.0"/>
     <set-attr-value name="collision" value="true"/>
     <set-attr-value name="language" value="c++"/>
     <set-attr-value name="implementation"
@@ -300,19 +300,4 @@
     <set-attr-value name="graspable" value="false"/>
   </instanciate>
 
-  <instanciate class="seWagon_c02.xml">
-    <set-attr-value name="name" value="wagon"/>
-    <set-attr-value name="dynamics" value="false"/>
-    <set-attr-value name="x" value="-170.0"/>
-    <set-attr-value name="y" value="25.4"/>
-    <set-attr-value name="z" value="-100.0"/>
-    <set-attr-value name="collision" value="true"/>
-    <set-attr-value name="language" value="c++"/>
-    <set-attr-value name="implementation"
-                    value="./Wagon.so"/>
-    <set-attr-value name="scalex" value="0.7"/>
-    <set-attr-value name="scaley" value="0.7"/>
-    <set-attr-value name="scalez" value="0.7"/>
-    <set-attr-value name="graspable" value="false"/>
-  </instanciate>
-</world>
+
